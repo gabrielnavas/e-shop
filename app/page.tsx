@@ -1,7 +1,7 @@
 export default function Home() {
   return (
-    <main>
-      E-Shop
-    </main>
+    <div>
+      E-Shopa
+    </div>
   )
 }
