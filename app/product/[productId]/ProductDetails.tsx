@@ -1,6 +1,7 @@
 "use client"
 
 import Button from "@/app/components/Button"
+import ProductImage from "@/app/components/products/ProductImage"
 import SetColor from "@/app/components/products/SetColor"
 import SetQuantity from "@/app/components/products/SetQuantity"
 import { Product } from "@/utils/products"
@@ -96,7 +97,11 @@ const ProductDetails: FC<IProductDetailsProps> = ({ product }) => {
       md:grid-cols-2
       gap-12
     ">
-      <div>Images</div>
+      <ProductImage 
+        cartProduct={cartProduct}
+        handleColorSelect={handleColorSelect}
+        product={product}
+      />
       <div className="
         flex 
         flex-col 
