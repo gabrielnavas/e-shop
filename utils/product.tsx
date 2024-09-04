@@ -1,6 +1,43 @@
 //I am changing the image links from firebase to amazon, firebase has issues with these direct links. Please remember to add the amazon link(that will show up at the error) instead of firebase at the cofig for it to work out.
 
-export const products = [
+export interface Product {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  brand: string;
+  category: string;
+  inStock: boolean;
+  images: Image[];
+  reviews: Review[];
+}
+interface Review {
+  id: string;
+  userId: string;
+  productId: string;
+  rating: number;
+  comment: string;
+  createdDate: string;
+  user: User;
+}
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  emailVerified?: any;
+  image: string;
+  hashedPassword?: any;
+  createdAt: string;
+  updatedAt: string;
+  role: string;
+}
+interface Image {
+  color: string;
+  colorCode: string;
+  image: string;
+}
+
+export const products: Product[] = [
   {
     id: "64a654593e91b8e73a351e9b",
     name: "iphone 14",
