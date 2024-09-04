@@ -32,7 +32,7 @@ export const NavBar: FC<INavBarProps> = (props) => {
             items-center
             justify-between
             gap-40
-            md-gap-0
+            md:gap-0
           ">
             <Link href='/' className={`
                 ${redressed.className}
@@ -50,7 +50,7 @@ export const NavBar: FC<INavBarProps> = (props) => {
               flex
               items-center
               gap-8
-              md-gap-12
+              md:gap-12
             ">
               <div>
                 CartCount
