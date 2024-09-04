@@ -1,5 +1,6 @@
 "use client"
 
+import Button from "@/app/components/Button"
 import SetColor from "@/app/components/products/SetColor"
 import SetQuantity from "@/app/components/products/SetQuantity"
 import { Product } from "@/utils/products"
@@ -145,7 +146,13 @@ const ProductDetails: FC<IProductDetailsProps> = ({ product }) => {
           handleQtyIncrease={handleQtyIncrease}
         />
         <Horizontal />
-        <div>Add to cartr</div>
+        <div>
+          <Button
+            custom="max-w-[300px]"
+            label="Add to cart"
+            onClick={() => { }}
+          />
+        </div>
       </div>
     </div>
   )
