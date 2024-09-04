@@ -8,12 +8,15 @@ import { Rating } from "@mui/material";
 import { formatPrice } from "@/utils/formatPrice";
 import { Product } from "@/utils/product";
 import { truncateText } from "@/utils/truncateText";
+import { useRouter } from "next/navigation";
 
 interface IProductCardProps {
   data: Product
 };
 
 export const ProductCard: FC<IProductCardProps> = ({ data }) => {
+
+  const router = useRouter()
 
   const productRatingSum = data.reviews
     .reduce((acc, review) => acc + review.rating, 0.0)
@@ -24,6 +27,7 @@ export const ProductCard: FC<IProductCardProps> = ({ data }) => {
 
   return (
     <div
+      onClick={() => router.push(`product/${data.id}`)}
       className="
         col-span-1
         cursor-pointer
