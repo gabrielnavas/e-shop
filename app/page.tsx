@@ -1,7 +1,23 @@
+import { products } from "@/utils/product";
+import { Container } from "./components/Container";
+import { HomeBanner } from "./components/HomeBanner";
+import { truncateText } from "@/utils/truncateText";
+
 export default function Home() {
   return (
-    <div>
-      {new Array(60).fill('').map((_, index) => (<div key={index}>E-Shopa</div>))}
+    <div className="
+      p-8
+    ">
+      <Container>
+        <div>
+          <HomeBanner />
+        </div>
+        <div>
+          {products.map(product => (
+            <div>{truncateText(product.name)}</div>
+          ))}
+        </div>
+      </Container>
     </div>
   )
 }
