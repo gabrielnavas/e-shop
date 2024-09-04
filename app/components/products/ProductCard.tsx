@@ -6,7 +6,7 @@ import Image from "next/image";
 import { Rating } from "@mui/material";
 
 import { formatPrice } from "@/utils/formatPrice";
-import { Product } from "@/utils/product";
+import { Product } from "@/utils/products";
 import { truncateText } from "@/utils/truncateText";
 import { useRouter } from "next/navigation";
 

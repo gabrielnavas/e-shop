@@ -1,4 +1,9 @@
+import { product } from "@/utils/product";
 import { FC } from "react";
+
+import { Container } from "@/app/components/Container"
+import ProductDetails from "./ProductDetails";
+
 interface IProductProps {
   params: {
     productId: string
@@ -7,8 +12,13 @@ interface IProductProps {
 
 const Product: FC<IProductProps> = ({ params }) => {
   return (
-    <div>
-      {params.productId}
+    <div
+      className="
+      p-8
+    ">
+      <Container>
+        <ProductDetails product={product} />
+      </Container>
     </div>
   );
 }
