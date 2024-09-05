@@ -18,6 +18,7 @@ export const ItemContent: FC<IItemContentProps> = ({
   const {
     handleRemoveProductFromCart,
     handleCartQtyIncrease,
+    handleCartQtyDecrease,
   } = useCart();
 
   return (
@@ -69,7 +70,7 @@ export const ItemContent: FC<IItemContentProps> = ({
         <SetQuantity
           cartCounter
           cartProduct={item}
-          handleQtyDecrease={() => { }}
+          handleQtyDecrease={() => handleCartQtyDecrease(item)}
           handleQtyIncrease={() => handleCartQtyIncrease(item)} />
       </div>
       <div className="justify-self-end self-center font-semibold">

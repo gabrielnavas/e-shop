@@ -1,3 +1,4 @@
+import SetQuantity from "@/app/components/products/SetQuantity";
 import { CartProductType } from "@/app/product/[productId]/ProductDetails";
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
 
@@ -9,6 +10,7 @@ type CartContextType = {
   handleAddProductToCart: (product: CartProductType) => void
   handleRemoveProductFromCart: (product: CartProductType) => void
   handleCartQtyIncrease: (product: CartProductType) => void
+  handleCartQtyDecrease: (product: CartProductType) => void
 }
 
 export const CartContext = createContext<CartContextType | null>(null);
@@ -101,12 +103,42 @@ export const CartContextProvider = (props: IUseCartProps) => {
     [cartProducts]
   )
 
+  const handleCartQtyDecrease = useCallback(
+    (product: CartProductType) => {
+      let updatedCart;
+
+      if (product.quantity <= 1) {
+        return toast.error("Ooops! MInimum reached")
+      }
+
+      if (cartProducts !== null) {
+        updatedCart = [...cartProducts]
+
+        const existingIndex = cartProducts.findIndex(
+          p => p.id === product.id
+        )
+
+        if (existingIndex >= 0) {
+          updatedCart[existingIndex].quantity--;
+        }
+
+        setCartProducts(updatedCart);
+        localStorage.setItem(
+          'eShopCartItems',
+          JSON.stringify(updatedCart)
+        );
+      }
+    },
+    [cartProducts]
+  )
+
   const value = {
     cartTotalQty,
     cartProducts,
     handleAddProductToCart,
     handleRemoveProductFromCart,
-    handleCartQtyIncrease
+    handleCartQtyIncrease,
+    handleCartQtyDecrease,
   } as CartContextType
 
   return (
