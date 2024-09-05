@@ -15,7 +15,10 @@ interface IItemContentProps {
 export const ItemContent: FC<IItemContentProps> = ({
   item
 }) => {
-  const { handleRemoveProductFromCart } = useCart();
+  const {
+    handleRemoveProductFromCart,
+    handleCartQtyIncrease,
+  } = useCart();
 
   return (
     <div className="
@@ -67,7 +70,7 @@ export const ItemContent: FC<IItemContentProps> = ({
           cartCounter
           cartProduct={item}
           handleQtyDecrease={() => { }}
-          handleQtyIncrease={() => { }} />
+          handleQtyIncrease={() => handleCartQtyIncrease(item)} />
       </div>
       <div className="justify-self-end self-center font-semibold">
         {formatPrice(item.price * item.quantity)}

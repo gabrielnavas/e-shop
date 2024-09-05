@@ -8,6 +8,7 @@ type CartContextType = {
   cartProducts: CartProductType[] | null;
   handleAddProductToCart: (product: CartProductType) => void
   handleRemoveProductFromCart: (product: CartProductType) => void
+  handleCartQtyIncrease: (product: CartProductType) => void
 }
 
 export const CartContext = createContext<CartContextType | null>(null);
@@ -71,11 +72,41 @@ export const CartContextProvider = (props: IUseCartProps) => {
     [cartProducts]
   )
 
+  const handleCartQtyIncrease = useCallback(
+    (product: CartProductType) => {
+      let updatedCart;
+
+      if (product.quantity >= 99) {
+        return toast.error("Ooops! Maximum reached")
+      }
+
+      if (cartProducts !== null) {
+        updatedCart = [...cartProducts]
+
+        const existingIndex = cartProducts.findIndex(
+          p => p.id === product.id
+        )
+
+        if (existingIndex >= 0) {
+          updatedCart[existingIndex].quantity++;
+        }
+
+        setCartProducts(updatedCart);
+        localStorage.setItem(
+          'eShopCartItems',
+          JSON.stringify(updatedCart)
+        );
+      }
+    },
+    [cartProducts]
+  )
+
   const value = {
     cartTotalQty,
     cartProducts,
     handleAddProductToCart,
     handleRemoveProductFromCart,
+    handleCartQtyIncrease
   } as CartContextType
 
   return (
