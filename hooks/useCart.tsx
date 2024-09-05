@@ -1,6 +1,8 @@
 import { CartProductType } from "@/app/product/[productId]/ProductDetails";
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
 
+import { toast } from 'react-hot-toast';
+
 type CartContextType = {
   cartTotalQty: number;
   cartProducts: CartProductType[] | null;
@@ -21,11 +23,11 @@ export const CartContextProvider = (props: IUseCartProps) => {
   useEffect(() => {
     const cartItems: any = localStorage.getItem('eShopCartItems');
     const cProducts: CartProductType[] | null = JSON.parse(cartItems);
-    if(cProducts !== null) {
+    if (cProducts !== null) {
       setCartProducts(cProducts);
 
       const totalQuantitySum = cProducts.reduce(
-        (acc, cartProduct) => acc + cartProduct.quantity, 
+        (acc, cartProduct) => acc + cartProduct.quantity,
         0
       )
       setCartTotalQty(totalQuantitySum)
@@ -36,7 +38,7 @@ export const CartContextProvider = (props: IUseCartProps) => {
     (product: CartProductType): void => {
       setCartProducts(prev => {
         let updatedCart;
-        if(prev !== null) {
+        if (prev !== null) {
           updatedCart = [...prev, product];
         } else {
           updatedCart = [product]
@@ -46,6 +48,8 @@ export const CartContextProvider = (props: IUseCartProps) => {
         return updatedCart
       })
       setCartTotalQty(prev => prev + 1);
+
+      toast.success('Producted added to cart')
     },
     []
   )
@@ -64,7 +68,7 @@ export const CartContextProvider = (props: IUseCartProps) => {
 export const useCart = () => {
   const context = useContext(CartContext)
 
-  if(context === null) {
+  if (context === null) {
     throw new Error("use cart must be used within a CartContextProvider")
   }
 
