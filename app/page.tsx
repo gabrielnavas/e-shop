@@ -25,7 +25,7 @@ export default function Home() {
           "
         >
           {products.map(product => (
-            <ProductCard data={product} />
+            <ProductCard key={product.id} data={product} />
           ))}
         </div>
       </Container>
