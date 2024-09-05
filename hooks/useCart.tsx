@@ -11,6 +11,7 @@ type CartContextType = {
   handleRemoveProductFromCart: (product: CartProductType) => void
   handleCartQtyIncrease: (product: CartProductType) => void
   handleCartQtyDecrease: (product: CartProductType) => void
+  handleClearCart: () => void
 }
 
 export const CartContext = createContext<CartContextType | null>(null);
@@ -132,6 +133,18 @@ export const CartContextProvider = (props: IUseCartProps) => {
     [cartProducts]
   )
 
+  const handleClearCart = useCallback(
+    () => {
+      setCartProducts(null)
+      setCartTotalQty(0);
+      localStorage.setItem(
+        'eShopCartItems',
+        JSON.stringify(null)
+      );
+    },
+    [cartProducts]
+  )
+
   const value = {
     cartTotalQty,
     cartProducts,
@@ -139,6 +152,7 @@ export const CartContextProvider = (props: IUseCartProps) => {
     handleRemoveProductFromCart,
     handleCartQtyIncrease,
     handleCartQtyDecrease,
+    handleClearCart
   } as CartContextType
 
   return (

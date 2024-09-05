@@ -45,7 +45,7 @@ const Button: FC<IButtonProps> = ({
           : 'bg-slate-700'
         }
       ${outline
-          ? 'text-slate-700'
+          ? 'text-slate-700 hover:text-slate-400 active:text-slate-700'
           : 'text-white'
         }
       ${small ? 'text-sm font-light' : 'text-md font-semibold'}

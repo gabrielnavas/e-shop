@@ -10,7 +10,7 @@ import { ItemContent } from "./ItemContent";
 interface ICartClientProps { };
 
 const CartClient: FC<ICartClientProps> = (props) => {
-  const { cartProducts } = useCart()
+  const { cartProducts, handleClearCart } = useCart()
 
   const isEmptyCart = cartProducts === null || cartProducts.length === 0
   if (isEmptyCart) {
@@ -50,7 +50,10 @@ const CartClient: FC<ICartClientProps> = (props) => {
       </div>
       <div className="border-t-[1.5px] border-slate-200 py-4 flex justify-between gap-4">
         <div className="w-[90px]">
-          <Button label="Clear Cart" onClick={() => { }} small outline />
+          <Button label="Clear Cart"
+            onClick={() => handleClearCart()}
+            small
+            outline />
         </div>
         <div className="text-sm flex flex-col gap-1 items-start">
           <div className="flex justify-between w-full text-base font-semibold ">
