@@ -38,9 +38,10 @@ const Horizontal = () => {
 
 const ProductDetails: FC<IProductDetailsProps> = ({ product }) => {
 
-  const cart = useCart();
+  const {cartProducts, handleAddProductToCart, cartTotalQty} = useCart();
 
-  console.log(cart.cartTotalQty);
+  console.log(cartProducts);
+  console.log(cartTotalQty);
   
 
   const [cartProduct, setCartProduct] = useState<CartProductType>({
@@ -161,7 +162,7 @@ const ProductDetails: FC<IProductDetailsProps> = ({ product }) => {
           <Button
             custom="max-w-[300px]"
             label="Add to cart"
-            onClick={() => { }}
+            onClick={() => handleAddProductToCart(cartProduct)}
           />
         </div>
       </div>

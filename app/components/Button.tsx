@@ -24,6 +24,7 @@ const Button: FC<IButtonProps> = ({
 }) => {
   return (
     <button
+      onClick={onClick}
       disabled={disabled}
       className={`
       disabled:opacity-70
