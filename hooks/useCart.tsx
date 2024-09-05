@@ -7,6 +7,7 @@ type CartContextType = {
   cartTotalQty: number;
   cartProducts: CartProductType[] | null;
   handleAddProductToCart: (product: CartProductType) => void
+  handleRemoveProductFromCart: (product: CartProductType) => void
 }
 
 export const CartContext = createContext<CartContextType | null>(null);
@@ -48,17 +49,34 @@ export const CartContextProvider = (props: IUseCartProps) => {
         return updatedCart
       })
       setCartTotalQty(prev => prev + 1);
-
       toast.success('Producted added to cart')
     },
     []
+  )
+
+  const handleRemoveProductFromCart = useCallback(
+    (product: CartProductType) => {
+      if (cartProducts !== null) {
+        const filtredProducts = cartProducts.filter(p => {
+          return p.id !== product.id;
+        });
+        setCartProducts(filtredProducts);
+        setCartTotalQty(prev => {
+          return prev - 1;
+        })
+        localStorage.setItem('eShopCartItems', JSON.stringify(filtredProducts));
+        toast.success('Producted removed')
+      }
+    },
+    [cartProducts]
   )
 
   const value = {
     cartTotalQty,
     cartProducts,
     handleAddProductToCart,
-  }
+    handleRemoveProductFromCart,
+  } as CartContextType
 
   return (
     <CartContext.Provider value={value} {...props} />

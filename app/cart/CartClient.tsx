@@ -6,6 +6,7 @@ import { FC } from "react";
 import { MdArrowBack } from "react-icons/md";
 import Heading from "../components/Heading";
 import Button from "../components/Button";
+import { ItemContent } from "./ItemContent";
 interface ICartClientProps { };
 
 const CartClient: FC<ICartClientProps> = (props) => {
@@ -44,7 +45,7 @@ const CartClient: FC<ICartClientProps> = (props) => {
       </div>
       <div>
         {cartProducts.map(item => {
-          return <div key={item.id}>{item.name}</div>
+          return <ItemContent key={item.id} item={item} />
         })}
       </div>
       <div className="border-t-[1.5px] border-slate-200 py-4 flex justify-between gap-4">
