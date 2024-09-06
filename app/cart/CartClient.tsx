@@ -7,10 +7,11 @@ import { MdArrowBack } from "react-icons/md";
 import Heading from "../components/Heading";
 import Button from "../components/Button";
 import { ItemContent } from "./ItemContent";
+import { formatPrice } from "@/utils/formatPrice";
 interface ICartClientProps { };
 
 const CartClient: FC<ICartClientProps> = (props) => {
-  const { cartProducts, handleClearCart } = useCart()
+  const { cartTotalAmount, cartProducts, handleClearCart } = useCart()
 
   const isEmptyCart = cartProducts === null || cartProducts.length === 0
   if (isEmptyCart) {
@@ -58,7 +59,7 @@ const CartClient: FC<ICartClientProps> = (props) => {
         <div className="text-sm flex flex-col gap-1 items-start">
           <div className="flex justify-between w-full text-base font-semibold ">
             <span>Subtotal</span>
-            <span>$1000</span>
+            <span>{formatPrice(cartTotalAmount)}</span>
           </div>
           <p className="text-slate-500">Taxes and shipping calcule at checkout</p>
           <Button label="Checkout" onClick={() => { }} />

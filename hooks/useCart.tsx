@@ -6,6 +6,7 @@ import { toast } from 'react-hot-toast';
 
 type CartContextType = {
   cartTotalQty: number;
+  cartTotalAmount: number;
   cartProducts: CartProductType[] | null;
   handleAddProductToCart: (product: CartProductType) => void
   handleRemoveProductFromCart: (product: CartProductType) => void
@@ -22,6 +23,7 @@ interface IUseCartProps {
 
 export const CartContextProvider = (props: IUseCartProps) => {
   const [cartTotalQty, setCartTotalQty] = useState(0)
+  const [cartTotalAmount, setCartTotalAmount] = useState(0.0)
   const [cartProducts, setCartProducts] = useState<CartProductType[] | null>(null)
 
   // load cart product from localstorage 
@@ -35,9 +37,28 @@ export const CartContextProvider = (props: IUseCartProps) => {
         (acc, cartProduct) => acc + cartProduct.quantity,
         0
       )
-      setCartTotalQty(totalQuantitySum)
     }
   }, [])
+
+  useEffect(() => {
+    const getTotals = () => {
+      if(cartProducts !== null) {
+        const {qty, total} = cartProducts.reduce((acc, item) => {
+          const itemTotal = item.quantity * item.price
+          acc.total += itemTotal
+          acc.qty += item.quantity
+          return acc;
+        }, {
+          total: 0.0,
+          qty: 0
+        })
+        setCartTotalQty(qty);
+        setCartTotalAmount(total);
+      }
+    }
+
+    getTotals();
+  }, [cartProducts])
 
   const handleAddProductToCart = useCallback(
     (product: CartProductType): void => {
@@ -147,6 +168,7 @@ export const CartContextProvider = (props: IUseCartProps) => {
 
   const value = {
     cartTotalQty,
+    cartTotalAmount,
     cartProducts,
     handleAddProductToCart,
     handleRemoveProductFromCart,
