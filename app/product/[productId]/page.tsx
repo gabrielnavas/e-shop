@@ -1,9 +1,10 @@
-import { product } from "@/utils/product";
 import { FC } from "react";
 
 import { Container } from "@/app/components/Container"
 import ProductDetails from "./ProductDetails";
 import ListRating from "./ListRating";
+import { products } from "@/utils/products";
+import { useRouter } from "next/navigation";
 
 interface IProductPage {
   params: {
@@ -12,6 +13,13 @@ interface IProductPage {
 };
 
 const ProductPage: FC<IProductPage> = ({ params }) => {
+  
+  const product = products.find(product => product.id === params.productId)
+  
+  if(product === undefined) {
+    return <div>product not found</div>
+  }
+
   return (
     <div
       className="p-8">
