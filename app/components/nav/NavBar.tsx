@@ -5,6 +5,7 @@ import Link from "next/link";
 
 import { Redressed } from 'next/font/google'
 import CartCount from "./CartCount";
+import { UserMenu } from "./UserMenu";
 
 const redressed = Redressed({ subsets: ['latin'], weight: ['400'] });
 
@@ -54,9 +55,7 @@ export const NavBar: FC<INavBarProps> = (props) => {
               md:gap-12
             ">
               <CartCount />
-              <div>
-                UserMenu
-              </div>
+              <UserMenu />
             </div>
           </div>
         </Container>
