@@ -10,11 +10,17 @@ import Button from "../components/Button";
 import Link from "next/link";
 
 import { AiOutlineGoogle } from 'react-icons/ai'
+import axios from "axios";
+import toast from "react-hot-toast";
+
+import {signIn} from 'next-auth/react'
+import { useRouter } from "next/navigation";
 
 interface IRegisterFormProps { };
 
 export const RegisterForm: FC<IRegisterFormProps> = (props) => {
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const {
     register, handleSubmit, formState: { errors }
@@ -28,18 +34,40 @@ export const RegisterForm: FC<IRegisterFormProps> = (props) => {
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
-    new Promise(resolve => setTimeout(() => {
-      console.log(data);
-      setIsLoading(false);
-    }, 1000))
+    axios.post("/api/register", data)
+      .then(() => {
+        toast.success("Account created");
+        signIn('credentials', {
+          email: data.email,
+          password: data.password,
+          redirect: false, 
+        }).then(callback => {
+          debugger
+          if(callback?.ok) {
+            router.push('/cart')
+            router.refresh()
+            toast.success("logged in");
+          }
+          if(callback?.error) {
+            toast.error(callback.error)
+          }
+        })
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("Error! Call the admin!");
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }
 
   return (
     <>
       <Heading title="Sign Up to E~Shop" />
       <hr className="bg-slate-300 w-full h-px" />
-      <Button 
-        outline 
+      <Button
+        outline
         label="Sign up with Google"
         Icon={AiOutlineGoogle}
         onClick={() => { }} />
