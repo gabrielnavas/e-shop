@@ -35,18 +35,20 @@ export const RegisterForm: FC<IRegisterFormProps> = (props) => {
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
     axios.post("/api/register", data)
-      .then(() => {
+      .then((result) => {
+        console.log(result);
         toast.success("Account created");
+
+        // TODO: remove from client
         signIn('credentials', {
           email: data.email,
           password: data.password,
           redirect: false, 
         }).then(callback => {
-          debugger
           if(callback?.ok) {
             router.push('/cart')
-            router.refresh()
-            toast.success("logged in");
+            // router.refresh()
+            toast.success("Logged in");
           }
           if(callback?.error) {
             toast.error(callback.error)
