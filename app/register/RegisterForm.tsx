@@ -47,7 +47,7 @@ export const RegisterForm: FC<IRegisterFormProps> = (props) => {
         }).then(callback => {
           if(callback?.ok) {
             router.push('/cart')
-            // router.refresh()
+            router.refresh()
             toast.success("Logged in");
           }
           if(callback?.error) {
